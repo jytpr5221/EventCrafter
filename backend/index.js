@@ -1,23 +1,27 @@
-const express = require('express')
-const app = express()
-const cookieParser=require('cookie-parser')
-const authRouter=require('./src/auth-routes/auth-route.js')
-const mongoose = require('mongoose')
-
-app.use(express.urlencoded({extended:false}))
-app.use(cookieParser())
 require('dotenv').config();
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const PORT= process.env.PORT || 8000
+const databaseUrl=process.env.DATABASE_URL
+const app = express();
+const orgRouter = require('./src/organizers/routes/organizer.js');
+const eventRouter = require('./src/events/routes/events.js');
+const customerRouter = require('./src/customer/routes/customer.js');
+const { restrictToLoggedInUsers } = require('./src/middlewares/middleware.js');
 
-app.route('/auth',authRouter)
-const port=process.env.PORT || 8000
-const mongoURL=process.env.DATABASE_URL
+app.use(express.json());
+app.use(cors());
+app.use(express.urlencoded({ extended: false }));
+mongoose.connect('mongodb://localhost:27017/')
+  .then(() => console.log('db connected'))
+  .catch(() => console.log('db connection failed'));
 
-mongoose
-  .connect(mongoURL)
-  .then(() => console.log("db connected"))
-  .catch(() => console.log("error in db-connection"));
+app.use('/org', orgRouter);
+app.use('/events', restrictToLoggedInUsers, eventRouter);
+app.use('/customer', customerRouter);
 
-app.listen(port,()=>{
 
-    console.log('server started')
-})
+app.listen(PORT, () => {
+  console.log('server started')
+});
