@@ -13,9 +13,9 @@ const { restrictToLoggedInUsers } = require('./src/middlewares/middleware.js');
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
-mongoose.connect('mongodb://localhost:27017/')
+mongoose.connect(databaseUrl)
   .then(() => console.log('db connected'))
-  .catch(() => console.log('db connection failed'));
+  .catch((err) => console.log('db connection failed', err));
 
 app.use('/org', orgRouter);
 app.use('/events', restrictToLoggedInUsers, eventRouter);
