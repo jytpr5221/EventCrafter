@@ -5,6 +5,7 @@ const cors = require('cors');
 const PORT= process.env.PORT || 8000
 const databaseUrl=process.env.DATABASE_URL
 const app = express();
+const path = require('path');
 const orgRouter = require('./src/organizers/routes/organizer.js');
 const eventRouter = require('./src/events/routes/events.js');
 const customerRouter = require('./src/customer/routes/customer.js');
