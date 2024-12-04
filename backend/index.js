@@ -9,11 +9,11 @@ const orgRouter = require('./src/organizers/routes/organizer.js');
 const eventRouter = require('./src/events/routes/events.js');
 const customerRouter = require('./src/customer/routes/customer.js');
 const { restrictToLoggedInUsers } = require('./src/middlewares/middleware.js');
-
+// console.log(databaseUrl)
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
-mongoose.connect(databaseUrl)
+mongoose.connect('mongodb://localhost:27017/')
   .then(() => console.log('db connected'))
   .catch(() => console.log('db connection failed'));
 
