@@ -5,10 +5,10 @@ const cors = require('cors');
 const PORT= process.env.PORT || 8000
 const databaseUrl=process.env.DATABASE_URL
 const app = express();
-const orgRouter = require('./src/organizers/routes/organizer.js');
-const eventRouter = require('./src/events/routes/events.js');
-const customerRouter = require('./src/customer/routes/customer.js');
-const { restrictToLoggedInUsers } = require('./src/middlewares/middleware.js');
+const orgRouter = require('./organizers/routes/organizer.js');
+const eventRouter = require('./events/routes/events.js');
+const customerRouter = require('./customer/routes/customer.js');
+const { restrictToLoggedInUsers } = require('./middlewares/middleware.js');
 
 app.use(express.json());
 app.use(cors());
