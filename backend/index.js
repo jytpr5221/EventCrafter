@@ -13,7 +13,7 @@ const { restrictToLoggedInUsers } = require('./src/middlewares/middleware.js');
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
-mongoose.connect('mongodb://localhost:27017/')
+mongoose.connect(databaseUrl)
   .then(() => console.log('db connected'))
   .catch(() => console.log('db connection failed'));
 
