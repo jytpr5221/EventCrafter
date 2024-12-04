@@ -16,7 +16,9 @@ app.use(express.urlencoded({ extended: false }));
 mongoose.connect(databaseUrl)
   .then(() => console.log('db connected'))
   .catch((err) => console.log('db connection failed', err));
-
+app.get('/',(req,res)=>{
+  return res.send('Welcome to EventCrafter backend!! ')
+})
 app.use('/org', orgRouter);
 app.use('/events', restrictToLoggedInUsers, eventRouter);
 app.use('/customer', customerRouter);
