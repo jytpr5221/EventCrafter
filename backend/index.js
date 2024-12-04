@@ -6,16 +6,18 @@ const mongoose = require('mongoose')
 
 app.use(express.urlencoded({extended:false}))
 app.use(cookieParser())
+require('dotenv').config();
 
 app.route('/auth',authRouter)
-
+const port=process.env.PORT || 8000
+const mongoURL=process.env.DATABASE_URL
 
 mongoose
-  .connect("mongodb://localhost:27017/")
+  .connect(mongoURL)
   .then(() => console.log("db connected"))
   .catch(() => console.log("error in db-connection"));
 
-app.listen(8001,()=>{
+app.listen(port,()=>{
 
     console.log('server started')
 })
